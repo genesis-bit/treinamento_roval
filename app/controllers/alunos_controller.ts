@@ -38,7 +38,8 @@ export default class AlunosController {
       return response.send(result)
     } catch (error) {
       console.log(error)
-      return response.status(400).json({ message: 'Falha ao salvar' })
+      //return response.status(400).json({ message: error })
+      return response.json({ messege: 'Erro ao Adicionar Aluno',  erro: error.messages})
     }
   }
 
@@ -55,7 +56,8 @@ export default class AlunosController {
       }
     } catch (error) {
       console.log(error)
-      return response.status(404).json({ message: 'Dados não encontrado' })
+      return response.json({ messege: 'Erro ao Procurar Aluno',  erro: error.messages})
+      //return response.status(404).json({ message: 'Dados não encontrado' })
     }
   }
 
@@ -78,8 +80,10 @@ export default class AlunosController {
         return response.json({ messege: 'Dados actualizado com sucesso',  dados})
       }
     } catch (error) {
-      console.log(error.messages)
-      return response.json({ messege: 'Erro ao actualizar',  erro: error.messages})
+      console.log(error)
+      return response.json({ messege: 'Erro ao Atualizar Aluno',  erro: error.messages})
+      //return response.json({ messege: 'Erro ao actualizar',  erro: error.message})
+
     }
   }
 
@@ -100,7 +104,8 @@ export default class AlunosController {
       }
     } catch (error) {
       console.log(error)
-      return response.json({mensagem:'Dados não eliminado!',dados})
+      return response.json({ messege: 'Erro ao Deletar Aluno',  erro: error.messages})
+      //return response.json({mensagem:'Dados não eliminado!',dados})
     }
   }
 }

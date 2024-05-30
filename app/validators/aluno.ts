@@ -11,6 +11,15 @@ export const createAlunoValidator = vine.compile(
 )
 
 
+export const updateAlunoValidator = vine.compile(
+    vine.object({
+        nome: vine.string().trim().escape().maxLength(100).minLength(2),
+        idade: vine.number().positive().withoutDecimals().range([5,200]),
+        periodo: vine.string().trim().escape().maxLength(100).minLength(2),
+        estado: vine.number().range([0,1]),
+      })
+)
+
 vine.messagesProvider = new SimpleMessagesProvider({
   // Applicable for all fields
   'required': 'O campo {{ field }} é obrigatório',
@@ -22,11 +31,3 @@ vine.messagesProvider = new SimpleMessagesProvider({
   //'username.required': 'Please choose a username for your account',
 })
 
-export const updateAlunoValidator = vine.compile(
-    vine.object({
-        nome: vine.string().trim().escape().maxLength(100).minLength(2),
-        idade: vine.number().positive().withoutDecimals().range([5,200]),
-        periodo: vine.string().trim().escape().maxLength(100).minLength(2),
-        estado: vine.number().range([0,1]),
-      })
-)
