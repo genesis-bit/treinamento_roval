@@ -1,14 +1,15 @@
-import Turma from '#models/turma'
-import { createTurmaValidator, updateTurmaValidator } from '#validators/turma'
 import type { HttpContext } from '@adonisjs/core/http'
 
-export default class TurmasController {
-  /**
+import TurmaAluno from "#models/turma_aluno"
+import { createTurmaAlunoValidator, updateTurmaAlunoValidator } from "#validators/turma_aluno"
+
+export default class TurmaAlunosController {
+     /**
    * Display a list of resource
    */
   async index({response}: HttpContext) {
     try {
-      const dados = await Turma.all()
+      const dados = await TurmaAluno.all()
       return response.json(dados)
       
     } catch (error) {
@@ -28,13 +29,13 @@ export default class TurmasController {
   async store({ request, response }: HttpContext) {
 
     try {
-      const dados = await request.only([ 'nome', 'descricao','estado'])
-      const data = await createTurmaValidator.validate(dados)
-      let result: any = await Turma.create(data)
-      return response.send({mensagem: 'Turma registada com Sucesso', result})
+      const dados = await request.only(['aluno_id', 'turma_id','estado']) 
+      const data = await createTurmaAlunoValidator.validate(dados)
+      let result: any = await TurmaAluno.create(data)
+      return response.send({mensagem: 'registada com Sucesso', result})
     } catch (error) {
       console.log(error)
-      return response.json({ messege: 'Erro ao Adicionar Turma',  erro: error.messages})
+      return response.json({ messege: 'Erro ao Adicionar',  erro: error.messages})
     }
   }
 
@@ -46,12 +47,12 @@ export default class TurmasController {
     console.log(params.id)
     try {
       if(params.id){
-        dados = await Turma.findOrFail(params.id)
+        dados = await TurmaAluno.findOrFail(params.id)
         return response.send(dados)
       }
     } catch (error) {
       console.log(error)
-      return response.json({ messege: 'Erro ao Procurar Turma',  erro: error.messages})
+      return response.json({ messege: 'Erro na pesquisa',  erro: error.messages})
       //return response.status(404).json({ message: 'Dados não encontrado' })
     }
   }
@@ -66,17 +67,17 @@ export default class TurmasController {
    */
   async update({ request, response, params }: HttpContext) {
 
-    let dados: any = await request.only(['nome', 'descricao','estado']) 
+    let dados: any = await request.only(['aluno_id', 'turma_id','estado']) 
     try {
-      const data = await Turma.findOrFail(params.id)
+      const data = await TurmaAluno.findOrFail(params.id)
       if(data){
-        const result = await updateTurmaValidator.validate(dados)
+        const result = await updateTurmaAlunoValidator.validate(dados)
         await data.merge(result).save()
         return response.json({ messege: 'Dados actualizado com sucesso',  dados})
       }
     } catch (error) {
       console.log(error)
-      return response.json({ messege: 'Erro ao Atualizar Turma',  erro: error.messages})
+      return response.json({ messege: 'Erro ao Atualizar',  erro: error.messages})
 
     }
   }
@@ -89,7 +90,7 @@ export default class TurmasController {
     try {
       
       if(params.id){
-        dados = await Turma.findOrFail(params.id)
+        dados = await TurmaAluno.findOrFail(params.id)
         if(dados){
           await dados.delete()
           return response.json({mensagem:'Dados eliminado com Sucesso!',dados})
@@ -98,7 +99,7 @@ export default class TurmasController {
       }
     } catch (error) {
       console.log(error)
-      return response.json({ messege: 'Erro ao Deletar Turma',  erro: error.messages})
+      return response.json({ messege: 'Erro ao Deletar',  erro: error.messages})
     }
   }
 }
