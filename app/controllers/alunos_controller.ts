@@ -3,6 +3,7 @@
 import Aluno from '#models/aluno'
 import { createAlunoValidator, updateAlunoValidator } from '#validators/aluno'
 import { HttpContext } from '@adonisjs/core/http'
+import vine from '@vinejs/vine'
 import { messages } from '@vinejs/vine/defaults'
 
 export default class AlunosController {
@@ -78,7 +79,7 @@ export default class AlunosController {
       }
     } catch (error) {
       console.log(error)
-      return response.json({ messege: 'Erro ao actualizar',  erro: messages})
+      return response.json({ messege: 'Erro ao actualizar',  erro: vine.messagesProvider})
     }
   }
 
