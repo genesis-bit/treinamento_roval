@@ -1,15 +1,18 @@
 /* eslint-disable prettier/prettier */
 
 import vine, { SimpleMessagesProvider }  from "@vinejs/vine"
-//import { JSONAPIErrorReporter } from '../app/validation_reporters.js'
 
 vine.messagesProvider = new SimpleMessagesProvider({
   // Applicable for all fields
   'required': 'O campo {{ field }} é obrigatório',
   'string': 'O campo {{ field }} deve ser do tipo string',
   'escape': 'Caracteres invalidos',
-  'maxLength' : 'O campo {{field}} permite no maximo 100 caracteres',
-  'minLength' : 'O campo {{field}} deve conter minimo 2 caracteres',
+  'maxLength' : 'O campo {{field}} permite no maximo {{max}} caracteres',
+  'minLength' : 'O campo {{field}} deve conter minimo {{min}} caracteres',
+  'withoutDecimals': 'o campo {{field}} não deve conter virgulas',
+  'positive': 'o campo {{field}} não deve ser negativo',
+  'number': 'O Campo {{field}} deve ser um numero',
+  'range': 'O Campo {{field}} deve estar no intervalo de {{min}} á {{max}}'
   // Error message for the username field
   //'username.required': 'Please choose a username for your account',
 })
@@ -34,6 +37,3 @@ export const updateAlunoValidator = vine.compile(
       })
 )
 
-
-
-//vine.errorReporter = () => new JSONAPIErrorReporter()
