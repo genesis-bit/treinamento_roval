@@ -17,7 +17,7 @@ export const createAlunoValidator = vine.compile(
 export const messeges = {
   string: '{{ field }} deve ser uma string',
   number: '{{ field }} deve ser um número',
-  minLength: '{{ field }} '
+  minLength: '{{ field }} ',
 }
 
 
