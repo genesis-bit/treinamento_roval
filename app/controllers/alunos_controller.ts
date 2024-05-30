@@ -30,22 +30,20 @@ export default class AlunosController {
   async store({ request, response }: HttpContext) {
 
     try {
-      const dados = await request.only([ 'nome', 'idade', 'sala', 'turma', 'periodo', 'endereco', 'estado'])
+      const dados = await request.only([ 'nome', 'idade','periodo','estado'])
       const data = await createAlunoValidator.validate(dados)
       let result: any = await Aluno.create(data)
       return response.send(result)
     } catch (error) {
       console.log(error)
-      return response.status(404).json({ message: 'Falha ao salvar' })
+      return response.status(400).json({ message: 'Falha ao salvar' })
     }
   }
 
   /**
    * Show individual record
    */
-  async show({ params, response }: HttpContext) {
-
-    
+  async show({ params, response }: HttpContext) {    
     let dados: any
     console.log(params.id)
     try {
@@ -69,7 +67,7 @@ export default class AlunosController {
    */
   async update({ request, response, params }: HttpContext) {
 
-    let dados: any = await request.only(['nome', 'idade', 'sala', 'turma', 'periodo', 'endereco', 'estado'])
+    let dados: any = await request.only(['nome', 'idade', 'periodo', 'estado'])
     try {
       const data = await Aluno.findOrFail(params.id)
       if(data){

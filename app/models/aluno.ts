@@ -1,9 +1,8 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
-import { HasMany } from '@adonisjs/lucid/types/relations'
-import AlunoDisciplina from './aluno_disciplina.js'
+import { BaseModel, column } from '@adonisjs/lucid/orm'
+
 
 export default class Aluno extends BaseModel {
   @column({ isPrimary: true })
@@ -16,16 +15,8 @@ export default class Aluno extends BaseModel {
   declare idade: number
   
   @column()
-  declare sala: string
-
-  @column()
-  declare turma: string
-  
-  @column()
   declare periodo: string
 
-  @column()
-  declare endereco: string 
   
   @column()
   declare estado: number 
@@ -35,9 +26,5 @@ export default class Aluno extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
-
-  //Relacionamento
-
-  //@hasMany(() => AlunoDisciplina, { foreignKey: 'aluno_id'})
-  //declare disciplinas: HasMany<typeof AlunoDisciplina> | undefined
+ 
 }
