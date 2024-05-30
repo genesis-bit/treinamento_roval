@@ -78,8 +78,8 @@ export default class AlunosController {
         return response.json({ messege: 'Dados actualizado com sucesso',  dados})
       }
     } catch (error) {
-      console.log(error)
-      return response.json({ messege: 'Erro ao actualizar',  erro: vine.messagesProvider})
+      console.log(error.messages)
+      return response.json({ messege: 'Erro ao actualizar',  erro: error.messages})
     }
   }
 
