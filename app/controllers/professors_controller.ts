@@ -24,8 +24,7 @@ export default class ProfessorsController {
             return response.send(result)
         } 
         catch (error) {
-            console.log(error)
-            return response.status(401).json({ mensagem: 'Erro ao Adicionar Professor',  erro: error.message})
+            return response.status(401).json({ mensagem: 'Erro ao Adicionar Professor',  erro: error})
         }
      }
 
@@ -48,12 +47,12 @@ export default class ProfessorsController {
             const data = await Professor.findOrFail(params.id)
             if(data){
                 const result = await updateAlunoValidator.validate(dados)
-                await data.merge(result).save()
-                return response.json({ mensagem: 'Dados actualizado com sucesso',  dados})
+                let salvo = await data.merge(result).save()
+                return response.json({ mensagem: 'Dados actualizado com sucesso',  salvo})
             }
             }
             catch (error) {
-                return response.json({ mensagem: 'Erro ao Atualizar Aluno',  erro: error.messages})
+                return response.status(401).json({ mensagem: 'Erro ao Atualizar Aluno',  erro: error.messages})
             }
     }
 
@@ -67,8 +66,7 @@ export default class ProfessorsController {
             }            
         }
         catch (error) {
-            return response.json({ mensagem: 'Erro ao Deletar Aluno',  erro: error.messages})
+            return response.json({ mensagem: 'Erro ao Deletar Aluno',  erro: error})
         }
     }
-
 }
