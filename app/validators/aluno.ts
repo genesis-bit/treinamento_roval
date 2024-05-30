@@ -20,9 +20,7 @@ export const messeges = {
   minLength: '{{ field }} '
 }
 
-//const messeges = {
-  //string: '{{ field }} deve'
-//}
+
 
 
 export const updateAlunoValidator = vine.compile(
