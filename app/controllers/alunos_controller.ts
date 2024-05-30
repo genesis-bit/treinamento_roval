@@ -71,7 +71,7 @@ export default class AlunosController {
    */
   async update({ request, response, params }: HttpContext) {
 
-    let dados: any = await request.only(['nome', 'idade', 'periodo', 'estado'])
+    let dados: any = await request.only(['nome', 'idade', 'periodo', 'estado']) 
     try {
       const data = await Aluno.findOrFail(params.id)
       if(data){
