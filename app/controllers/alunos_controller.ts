@@ -105,7 +105,6 @@ export default class AlunosController {
     } catch (error) {
       console.log(error)
       return response.json({ messege: 'Erro ao Deletar Aluno',  erro: error.messages})
-      //return response.json({mensagem:'Dados não eliminado!',dados})
     }
   }
 }

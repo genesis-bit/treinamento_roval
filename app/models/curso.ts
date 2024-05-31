@@ -1,21 +1,21 @@
 import { DateTime } from 'luxon'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
-import TurmaAluno from './turma_aluno.js'
+import { BaseModel, column } from '@adonisjs/lucid/orm'
 
-export default class Turma extends BaseModel {
+export default class Curso extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
   @column()
+  declare codigo: string
+
+  @column()
   declare nome: string
-  
+
   @column()
   declare descricao: string
-  
+
   @column()
   declare estado: number
-  
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -23,7 +23,5 @@ export default class Turma extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @hasMany(() => TurmaAluno, { foreignKey: 'turma_id'})
-  declare turma_alunos: HasMany <typeof TurmaAluno>
-
+  
 }

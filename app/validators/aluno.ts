@@ -4,7 +4,7 @@
 import vine, { SimpleMessagesProvider }  from "@vinejs/vine"
 
 vine.messagesProvider = new SimpleMessagesProvider({
-  // Applicable for all fields
+ 
   'required': 'O campo {{ field }} é obrigatório',
   'string': 'O campo {{ field }} deve ser do tipo string',
   'escape': 'Caracteres invalidos',
@@ -14,8 +14,7 @@ vine.messagesProvider = new SimpleMessagesProvider({
   'positive': 'o campo {{field}} não deve ser negativo',
   'number': 'O Campo {{field}} deve ser um numero',
   'range': 'O Campo {{field}} deve estar no intervalo de {{min}} á {{max}}'
-  // Error message for the username field
-  //'username.required': 'Please choose a username for your account',
+  
 })
 
 export const createAlunoValidator = vine.compile(
