@@ -98,7 +98,7 @@ export default class ClasseAlunosController {
      }
    } catch (error) {
      console.log(error)
-     return response.json({ messege: 'Erro ao Deletar',  erro: error.messages})
+     return response.json({ messege: 'Erro ao eliminar',  erro: error.messages})
    }
  }
 }

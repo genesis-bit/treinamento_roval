@@ -8,7 +8,7 @@ export default class CursoAlunosController {
    */
   async index({response}: HttpContext) {
     try {
-      const dados = await CursoAluno.all()
+      const dados = await CursoAluno.query().preload('aluno').preload('curso')
       return response.json(dados)
       
     } catch (error) {

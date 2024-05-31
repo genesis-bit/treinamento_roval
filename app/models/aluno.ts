@@ -6,6 +6,7 @@ import TurmaAluno from './turma_aluno.js'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import ClasseAluno from './classe_aluno.js'
 import { Before } from 'v8'
+import CursoAluno from './curso_aluno.js'
 
 
 export default class Aluno extends BaseModel {
@@ -36,4 +37,7 @@ export default class Aluno extends BaseModel {
 
   @hasMany(() => ClasseAluno, { foreignKey: 'aluno_id'})
   declare alunos: HasMany <typeof ClasseAluno>
+
+  @hasMany(() => CursoAluno, { foreignKey: 'aluno_id'})
+  declare curso_alunos: HasMany <typeof CursoAluno>
 }

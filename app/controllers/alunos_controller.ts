@@ -35,7 +35,7 @@ export default class AlunosController {
       const dados = await request.only([ 'nome', 'idade','periodo','estado'])
       const data = await createAlunoValidator.validate(dados)
       let result: any = await Aluno.create(data)
-      return response.send(result)
+      return response.send({ mensagem: 'Dados Salvo com Sucesso!',result})
     } catch (error) {
       console.log(error)
       //return response.status(400).json({ message: error })
