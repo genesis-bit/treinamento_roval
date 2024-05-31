@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable prettier/prettier */
+
 import Turma from '#models/turma'
 import { createTurmaValidator, updateTurmaValidator } from '#validators/turma'
 import type { HttpContext } from '@adonisjs/core/http'

@@ -3,7 +3,9 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import TurmaAluno from './turma_aluno.js'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import ClasseAluno from './classe_aluno.js'
+import { Before } from 'v8'
 
 
 export default class Aluno extends BaseModel {
@@ -31,4 +33,7 @@ export default class Aluno extends BaseModel {
  
   @hasMany(() => TurmaAluno, { foreignKey: 'aluno_id'})
   declare turma_alunos: HasMany <typeof TurmaAluno>
+
+  @hasMany(() => ClasseAluno, { foreignKey: 'aluno_id'})
+  declare alunos: HasMany <typeof ClasseAluno>
 }

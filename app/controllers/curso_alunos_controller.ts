@@ -1,4 +1,5 @@
 import CursoAluno from '#models/curso_aluno'
+import { createCursoAlunoValidator, updateCusrsoAlunoValidator } from '#validators/curso_aluno'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class CursoAlunosController {
@@ -27,7 +28,7 @@ export default class CursoAlunosController {
   async store({ request, response }: HttpContext) {
 
     try {
-      const dados = await request.only([ 'nome', 'descricao','estado'])
+      const dados = await request.only([ 'aluno_id', 'curso_id','estado'])
       const data = await createCursoAlunoValidator.validate(dados)
       let result: any = await CursoAluno.create(data)
       return response.send({mensagem: 'Associado com Sucesso', result})
@@ -65,11 +66,11 @@ export default class CursoAlunosController {
    */
   async update({ request, response, params }: HttpContext) {
 
-    let dados: any = await request.only(['nome', 'descricao','estado']) 
+    let dados: any = await request.only(['aluno_id', 'curso_id','estado']) 
     try {
       const data = await CursoAluno.findOrFail(params.id)
       if(data){
-        const result = await updateCursoAlunoValidator.validate(dados)
+        const result = await updateCusrsoAlunoValidator.validate(dados)
         await data.merge(result).save()
         return response.json({ messege: 'Dados actualizado com sucesso',  dados})
       }

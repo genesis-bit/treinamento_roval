@@ -2,7 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 import TurmaAluno from "#models/turma_aluno"
 import { createTurmaAlunoValidator, updateTurmaAlunoValidator } from "#validators/turma_aluno"
-import Aluno from '#models/aluno'
+
 
 export default class TurmaAlunosController {
      /**
@@ -10,7 +10,7 @@ export default class TurmaAlunosController {
    */
   async index({response}: HttpContext) {
     try {
-      const dados = await TurmaAluno.query().preload('Aluno')
+      const dados = await TurmaAluno.query().preload('aluno').preload('turma')
       return response.json(dados)
       
     } catch (error) {
