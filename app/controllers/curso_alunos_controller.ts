@@ -1,6 +1,7 @@
 import CursoAluno from '#models/curso_aluno'
 import { createCursoAlunoValidator, updateCusrsoAlunoValidator } from '#validators/curso_aluno'
 import type { HttpContext } from '@adonisjs/core/http'
+import db from '@adonisjs/lucid/services/db'
 
 export default class CursoAlunosController {
     /**
@@ -98,6 +99,29 @@ export default class CursoAlunosController {
     } catch (error) {
       console.log(error)
       return response.json({ messege: 'Erro ao Deletar Turma',  erro: error.messages})
+    }
+  }
+
+  //outras Funcionalidades
+
+  async getAlunosCurso({ params, response}: HttpContext){
+
+    try {
+      const dados: any = await db.from('cursos')
+      .join('curso_alunos', 'curso_alunos.curso_id', 'cursos.id')
+      .join('alunos', 'alunos.id', 'curso_alunos.aluno_id')
+      .select('cursos.nome as curso',
+        'alunos.nome as Aluno',
+        'alunos.periodo as periodo'
+      ). orderBy('cursos.nome', 'asc')
+      .where('curso_alunos.curso_id', params.id)
+
+      if(dados)
+        return response.send(dados)
+
+    } catch (error) {
+      console.log(error)
+      return response.json({ messege: 'Erro na pesquisa',  erro: error.messages})
     }
   }
 }

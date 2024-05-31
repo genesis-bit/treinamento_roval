@@ -3,8 +3,6 @@
 import Aluno from '#models/aluno'
 import { createAlunoValidator, updateAlunoValidator } from '#validators/aluno'
 import { HttpContext } from '@adonisjs/core/http'
-import vine from '@vinejs/vine'
-import { messages } from '@vinejs/vine/defaults'
 
 export default class AlunosController {
   /**

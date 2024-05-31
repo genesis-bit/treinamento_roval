@@ -33,6 +33,11 @@ router.resource('classe-aluno', ClasseAlunosController)
 router.resource('curso-aluno', CursoAlunosController)
 router.resource('professores', ProfessorsController)
 
+//Rotas de Pesquisas
+
+router.get('curso-alunos/:id', [CursoAlunosController, 'getAlunosCurso'])
+router.get('classe-alunos/:id', [ClasseAlunosController, 'getClasseAlunos'])
+
 //router.get('alunos', [AlunosController, 'index']).as('aluno.index')
 //router.post('alunos', [AlunosController, 'store']).as('aluno.store')
 //router.get('alunos/:d', [AlunosController, 'show']).as('aluno.show')

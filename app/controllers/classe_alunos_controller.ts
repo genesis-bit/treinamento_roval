@@ -1,6 +1,7 @@
  import ClasseAluno from '#models/classe_aluno'
 import { createClasseAlunoValidator, updateClasseAlunoValidator } from '#validators/classe_aluno'
 import type { HttpContext } from '@adonisjs/core/http'
+import db from '@adonisjs/lucid/services/db'
 
 export default class ClasseAlunosController {
     /**
@@ -101,4 +102,27 @@ export default class ClasseAlunosController {
      return response.json({ messege: 'Erro ao eliminar',  erro: error.messages})
    }
  }
+
+ //outras Funcionalidades
+
+ async getClasseAlunos({ params, response}: HttpContext){
+
+  try {
+    const dados: any = await db.from('classes')
+    .join('classe_alunos', 'classe_alunos.classe_id', 'classes.id')
+    .join('alunos', 'alunos.id', 'classe_alunos.aluno_id')
+    .select('classes.nome as classe',
+      'alunos.nome as Aluno',
+      'alunos.periodo as periodo'
+    ). orderBy('classes.nome', 'asc')
+    .where('classe_alunos.classe_id', params.id)
+
+    if(dados)
+      return response.send(dados)
+
+  } catch (error) {
+    console.log(error)
+    return response.json({ messege: 'Erro na pesquisa',  erro: error.messages})
+  }
+}
 }
