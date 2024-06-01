@@ -23,9 +23,9 @@ export default class ClasseAluno extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @belongsTo(() => Classe, {foreignKey: 'classe_id'})
-  declare classe: BelongsTo <typeof Classe>
+  @belongsTo(() => Classe, { foreignKey: 'classe_id' })
+  declare classe: BelongsTo<typeof Classe>
 
-  @belongsTo(() => Aluno, {foreignKey: 'aluno_id'})
-  declare aluno: BelongsTo <typeof Aluno>
+  @belongsTo(() => Aluno, { foreignKey: 'aluno_id' })
+  declare aluno: BelongsTo<typeof Aluno>
 }

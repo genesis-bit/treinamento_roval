@@ -12,15 +12,14 @@ vine.messagesProvider = new SimpleMessagesProvider({
   range: 'O Campo {{field}} deve estar no intervalo de {{min}} á {{max}}',
 })
 
-export const createTurmaValidator = vine.compile(
+export const createSalaValidator = vine.compile(
   vine.object({
     nome: vine.string().trim().escape().maxLength(100).minLength(2),
     descricao: vine.string().trim().escape().maxLength(100).minLength(2).optional(),
     estado: vine.number().range([0, 1]),
   })
 )
-
-export const updateTurmaValidator = vine.compile(
+export const updateSalaValidator = vine.compile(
   vine.object({
     nome: vine.string().trim().escape().maxLength(100).minLength(2),
     descricao: vine.string().trim().escape().maxLength(100).minLength(2).optional(),

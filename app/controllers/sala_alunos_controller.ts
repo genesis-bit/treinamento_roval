@@ -1,15 +1,16 @@
-import CursoAluno from '#models/curso_aluno'
-import { createCursoAlunoValidator, updateCusrsoAlunoValidator } from '#validators/curso_aluno'
+import SalaAluno from '#models/sala_aluno'
+import { createSalaAlunolunoValidator, updateSalaAlunoValidator } from '#validators/sala_aluno'
 import type { HttpContext } from '@adonisjs/core/http'
-import db from '@adonisjs/lucid/services/db'
-
-export default class CursoAlunosController {
+createSalaAlunolunoValidator
+updateSalaAlunoValidator
+SalaAluno
+export default class SalaAlunosController {
   /**
    * Display a list of resource
    */
   async index({ response }: HttpContext) {
     try {
-      const dados = await CursoAluno.query().preload('aluno').preload('curso')
+      const dados = await SalaAluno.all()
       return response.json(dados)
     } catch (error) {
       console.log(error.message)
@@ -27,13 +28,13 @@ export default class CursoAlunosController {
    */
   async store({ request, response }: HttpContext) {
     try {
-      const dados = await request.only(['aluno_id', 'curso_id', 'estado'])
-      const data = await createCursoAlunoValidator.validate(dados)
-      let result: any = await CursoAluno.create(data)
-      return response.send({ mensagem: 'Associado com Sucesso', result })
+      const dados = await request.only(['nome', 'descricao', 'estado'])
+      const data = await createSalaAlunolunoValidator.validate(dados)
+      let result: any = await SalaAluno.create(data)
+      return response.send({ mensagem: 'Turma registada com Sucesso', result })
     } catch (error) {
       console.log(error)
-      return response.json({ messege: 'Erro ao Associar Aluno', erro: error.messages })
+      return response.json({ messege: 'Erro ao Adicionar Turma', erro: error.messages })
     }
   }
 
@@ -45,7 +46,7 @@ export default class CursoAlunosController {
     console.log(params.id)
     try {
       if (params.id) {
-        dados = await CursoAluno.findOrFail(params.id)
+        dados = await SalaAluno.findOrFail(params.id)
         return response.send(dados)
       }
     } catch (error) {
@@ -64,11 +65,11 @@ export default class CursoAlunosController {
    * Handle form submission for the edit action
    */
   async update({ request, response, params }: HttpContext) {
-    let dados: any = await request.only(['aluno_id', 'curso_id', 'estado'])
+    let dados: any = await request.only(['nome', 'descricao', 'estado'])
     try {
-      const data = await CursoAluno.findOrFail(params.id)
+      const data = await SalaAluno.findOrFail(params.id)
       if (data) {
-        const result = await updateCusrsoAlunoValidator.validate(dados)
+        const result = await updateSalaAlunoValidator.validate(dados)
         await data.merge(result).save()
         return response.json({ messege: 'Dados actualizado com sucesso', dados })
       }
@@ -85,7 +86,7 @@ export default class CursoAlunosController {
     let dados: any
     try {
       if (params.id) {
-        dados = await CursoAluno.findOrFail(params.id)
+        dados = await SalaAluno.findOrFail(params.id)
         if (dados) {
           await dados.delete()
           return response.json({ mensagem: 'Dados eliminado com Sucesso!', dados })
@@ -94,25 +95,6 @@ export default class CursoAlunosController {
     } catch (error) {
       console.log(error)
       return response.json({ messege: 'Erro ao Deletar Turma', erro: error.messages })
-    }
-  }
-
-  //outras Funcionalidades
-
-  async getAlunosCurso({ params, response }: HttpContext) {
-    try {
-      const dados: any = await db
-        .from('cursos')
-        .join('curso_alunos', 'curso_alunos.curso_id', 'cursos.id')
-        .join('alunos', 'alunos.id', 'curso_alunos.aluno_id')
-        .select('cursos.nome as curso', 'alunos.nome as Aluno', 'alunos.periodo as periodo')
-        .orderBy('cursos.nome', 'asc')
-        .where('curso_alunos.curso_id', params.id)
-
-      if (dados) return response.send(dados)
-    } catch (error) {
-      console.log(error)
-      return response.json({ messege: 'Erro na pesquisa', erro: error.messages })
     }
   }
 }

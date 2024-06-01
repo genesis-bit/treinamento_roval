@@ -5,18 +5,18 @@ vine.messagesProvider = new SimpleMessagesProvider({
   number: 'O Campo {{field}} deve ser um numero',
 })
 
-export const createTurmaAlunoValidator = vine.compile(
+export const createSalaProfessorValidator = vine.compile(
   vine.object({
-    aluno_id: vine.number(),
-    turma_id: vine.number(),
+    professor_id: vine.number(),
+    sala_professor_id: vine.number(),
     estado: vine.number(),
   })
 )
 
-export const updateTurmaAlunoValidator = vine.compile(
+export const updateSalaProfessorVaValidator = vine.compile(
   vine.object({
-    aluno_id: vine.number(),
-    turma_id: vine.number(),
+    professor_id: vine.number(),
+    sala_professor_id: vine.number(),
     estado: vine.number(),
   })
 )

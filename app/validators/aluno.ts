@@ -19,7 +19,7 @@ vine.messagesProvider = new SimpleMessagesProvider({
 
 export const createAlunoValidator = vine.compile(
   vine.object({
-    nome: vine.string().trim().escape().maxLength(100).minLength(2),
+    nome: vine.string().trim().escape().maxLength(100).minLength(2),//.use(uniqueRule({ table: 'alunos', column: 'nome' })),
     idade: vine.number().positive().withoutDecimals().range([5,200]),
     periodo: vine.string().trim().escape().maxLength(100).minLength(2),
     estado: vine.number().range([0,1]),
@@ -29,10 +29,14 @@ export const createAlunoValidator = vine.compile(
 
 export const updateAlunoValidator = vine.compile(
     vine.object({
-        nome: vine.string().trim().escape().maxLength(100).minLength(2),
+        nome: vine.string().trim().escape().maxLength(100).minLength(2),//.use(uniqueRule({ table: 'alunos', column: 'nome' })),
         idade: vine.number().positive().withoutDecimals().range([5,200]),
         periodo: vine.string().trim().escape().maxLength(100).minLength(2),
         estado: vine.number().range([0,1]),
       })
 )
+/*
+function uniqueRule(arg0: { table: string; column: string }): import("@vinejs/vine/types").RuleBuilder | import("@vinejs/vine/types").Validation<any> {
+  throw new Error("Function not implemented.")
+}*/
 
